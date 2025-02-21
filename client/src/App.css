@@ -1,0 +1,28 @@
+:root{
+    --primary-color:#365486;
+    --primary-hover-color:#4A649E;;
+    --secondary-color:#A9B5DF;
+    --text-dark-color:#000000;
+    --text-light-color:#ffffff;
+    --primary-shadow:rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Open Sans", serif;
+}
+a{
+    text-decoration: none;
+    color: var(--text-dark-color);
+}
+img{
+    -webkit-user-drag: none;
+}
+.section{
+    padding-left:5rem;
+    padding-right:5rem;
+}
+.link-tag{
+    cursor: pointer;
+}

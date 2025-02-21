@@ -1,0 +1,90 @@
+.login-box h1{
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+.login-box h2{
+    color: var(--primary-color);
+    margin-bottom: 0.7rem;
+}
+.outer{
+    background: var(--secondary-color);
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+.login-box{
+    display: flex
+;
+    gap: 2rem;
+    align-items: center;
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: var(--primary-shadow);
+}
+.login-box .left img{
+    max-width: 400px;
+}
+.login-box .options{
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+}
+.each-line{
+    display: flex
+;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+.each-line label{
+    margin-bottom: 0.5rem;
+}
+.each-line input{
+    padding: 0.4rem;
+    max-width: 350px;
+}
+.each-option{
+    padding: 0.5rem;
+    border-radius: 10px;
+    min-width: 150px;
+    text-align: center;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: 0.1s ease-in;
+}
+.each-option:hover{
+    transform: scale(1.02);
+}
+.each-option.active{
+    transform: scale(1.02);
+}
+.each-option.student{
+    border: 4px solid #E91E63;
+    color: #E91E63;
+}
+.each-option.student.active{
+    background: #e91e6330;
+}
+.each-option.teacher{
+    border: 4px solid #2196F3;
+    color: #2196F3;
+}
+.each-option.teacher.active{
+    background: #2196f342;
+}
+.each-option.headmaster{
+    border: 4px solid #8BC34A;
+    color: #8BC34A;
+}
+.each-option.active.headmaster{
+    background: #8bc34a45;
+}
+.each-option img{
+    height: 70px;
+    object-fit: contain;
+}

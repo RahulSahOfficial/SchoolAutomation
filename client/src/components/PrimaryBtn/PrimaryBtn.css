@@ -1,0 +1,18 @@
+.p-btn{
+    background: var(--primary-color);
+    color: var(--text-light-color);
+    padding: 0.7rem 5rem;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1rem;
+    border: none;
+    text-transform: uppercase;
+    transition: 0.2s ease-in;
+}
+.p-btn:hover{
+    transform: scale(1.02);
+    background: var(--primary-hover-color);
+}
+.p-btn:active{
+    transform: scale(0.98);
+}
