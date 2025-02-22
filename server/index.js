@@ -24,9 +24,10 @@ app.get("/", (req, res) => {
 
 app.use("/public", express.static(uploadDir));
 
+app.use("/api/headmasters", require("./routes/headmasterRoutes"));
 app.use("/api/teachers", require("./routes/teacherRoutes"));
-app.use("/api/students", require("./routes/studentRoutes"));
 app.use("/api/classes", require("./routes/classRoutes"));
+app.use("/api/students", require("./routes/studentRoutes"));
 app.use("/api/attendance", require("./routes/attendanceRoutes"));
 
 const PORT = process.env.PORT || 3000;
