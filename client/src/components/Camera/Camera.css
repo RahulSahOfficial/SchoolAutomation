@@ -1,0 +1,17 @@
+.camera .buttons-box{
+    display: flex
+    ;
+        gap: 1rem;
+        flex-wrap: wrap;
+}
+.camera button{
+    width: 8rem;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: var(--text-light-color);
+    background: var(--primary-color);
+    border-radius: 5px;
+}

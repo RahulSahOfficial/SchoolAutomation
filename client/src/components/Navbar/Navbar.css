@@ -7,6 +7,10 @@ nav{
     align-items: center;
     color: var(--text-light-color);
 }
+nav h2{
+    color: var(--text-light-color);
+    margin-bottom: 0;
+}
 nav .right{
     display: flex;
     align-items: center;

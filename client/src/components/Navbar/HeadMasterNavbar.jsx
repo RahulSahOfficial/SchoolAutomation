@@ -11,7 +11,7 @@ export default function HeadMasterNavbar() {
   return (
     <nav className="section">
         <div className="left">
-            <h1>HeadMaster Panel</h1>
+            <h2>HeadMaster Panel</h2>
         </div>
         <div className="right profile">
             <img src="/images/profile.png" alt="Profile" />

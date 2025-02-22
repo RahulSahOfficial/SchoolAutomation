@@ -1,8 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css';
-import StudentNavbar from "./components/Navbar/StudentNavbar";
+import TeacherDashboard from "./components/Dashboard/TeacherDashboard";
 import Login from "./components/Login/Login";
 import Home from "./components/Home/Home";
+import SelectClass from "./components/SelectClass/SelectClass";
+import MarkAttendence from "./components/MarkAttendence/MarkAttendence";
 
 
 function App() {
@@ -10,8 +12,10 @@ function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<TeacherDashboard />} />
+        <Route path="/select-class" element={<SelectClass />} />
+        <Route path="/mark-attendence" element={<MarkAttendence />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/" element={<StudentNavbar />} />
       </Routes>
     </Router>
   )

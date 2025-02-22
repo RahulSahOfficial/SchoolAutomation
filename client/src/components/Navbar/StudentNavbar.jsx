@@ -11,7 +11,7 @@ export default function StudentNavbar() {
   return (
     <nav className="section">
         <div className="left">
-            <h1>Student Panel</h1>
+            <h2>Student Panel</h2>
         </div>
         <div className="right profile">
             <img src="/images/profile.png" alt="Profile" />

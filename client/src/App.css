@@ -14,7 +14,11 @@
 }
 a{
     text-decoration: none;
-    color: var(--text-dark-color);
+    color: var(--primary-color);
+}
+h1,h2,h3,h4,h5,h6{
+    color: var(--primary-color);
+    margin-bottom: 1rem;
 }
 img{
     -webkit-user-drag: none;
@@ -25,4 +29,23 @@ img{
 }
 .link-tag{
     cursor: pointer;
+}
+table{
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+}
+thead{
+    background: var(--primary-color);
+    color: white;
+}
+td,th{
+    border: 1px solid var(--text-dark-color);
+    padding: 0.5rem 1rem;
+}
+td.center{
+    text-align: center;
+}
+.big-checkbox{
+    width: 1.2rem;
+    height: 1.2rem;
 }

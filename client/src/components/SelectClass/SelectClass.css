@@ -1,0 +1,21 @@
+.options-box{
+    display: flex
+;
+flex-direction: column;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+.options-box a{
+    background: var(--primary-color);
+    color: white;
+    font-size: 1rem;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 5px;
+    width: 15rem;
+    transition: 0.2s ease;
+}
+.options-box a:hover{
+    background: var(--primary-hover-color);
+    transform: scale(1.02);
+}

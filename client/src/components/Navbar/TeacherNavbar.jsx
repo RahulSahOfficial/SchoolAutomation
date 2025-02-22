@@ -11,7 +11,7 @@ export default function TeacherNavbar() {
   return (
     <nav className="section">
         <div className="left">
-            <h1>Teacher Panel</h1>
+            <h2>Teacher Panel</h2>
         </div>
         <div className="right profile">
             <img src="/images/profile.png" alt="Profile" />
