@@ -4,6 +4,9 @@ import { MdFormatListBulletedAdd } from "react-icons/md";
 import { IoIosPersonAdd } from "react-icons/io";
 import { SiGoogleclassroom } from "react-icons/si";
 import { VscGraphLine } from "react-icons/vsc";
+import { FaBookMedical } from "react-icons/fa6";
+import { PiExamBold } from "react-icons/pi";
+import { GrScorecard } from "react-icons/gr";
 import "./Dashboard.css";
 
 export default function Dashboard() {
@@ -37,6 +40,12 @@ export default function Dashboard() {
                 <br />
                 Add Student
               </Link>
+
+              <Link to="/add-marks">
+                <GrScorecard />
+                <br />
+                Add Marks
+              </Link>
             </>
           )}
 
@@ -53,6 +62,18 @@ export default function Dashboard() {
                 <SiGoogleclassroom />
                 <br />
                 Add Class
+              </Link>
+
+              <Link to="/add-subject">
+                <FaBookMedical />
+                <br />
+                Add Subject
+              </Link>
+
+              <Link to="/add-exam">
+                <PiExamBold />
+                <br />
+                Add Exam
               </Link>
               
               <Link to="/view-attendence">

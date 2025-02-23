@@ -23,6 +23,12 @@ h1,h2,h3,h4,h5,h6{
 img{
     -webkit-user-drag: none;
 }
+.imp-message{
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-weight: 600;
+}
 .section{
     padding-left:5rem;
     padding-right:5rem;
