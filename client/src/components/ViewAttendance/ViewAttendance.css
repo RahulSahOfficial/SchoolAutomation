@@ -1,0 +1,51 @@
+.date-down-btn{
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 500px;
+    background: var(--secondary-color);
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    color: var(--text-dark-color);
+    cursor: pointer;
+}
+.date-down-btn button{
+    border: none;
+    background: transparent;
+    font-size: 1.5rem;
+}
+.chart-wrapper {
+    max-width: 500px;
+    width: 100%;
+}
+.label{
+    width: 5rem;
+    display: flex;
+    padding: 0.3rem;
+    justify-content: center;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+.label.Critical{
+    background: #ffd2d2;
+    color: red;
+    border: 1px solid red;
+}
+.label.Low{
+    background: #ff980033;
+    color: #FF9800;
+    border: 1px solid #FF9800;
+}
+.label.Ok{
+    background: #ffc10736;
+    color: #ffc107;
+    border: 1px solid #ffc107;
+}
+.label.Good{
+    background: #8bc34a3b;
+    color: #8BC34A;
+    border: 1px solid #8BC34A;
+}
