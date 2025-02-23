@@ -9,6 +9,10 @@ import AddStudent from "./components/AddStudent/AddStudent";
 import AddTeacher from "./components/AddTeacher/AddTeacher";
 import AddClass from "./components/AddClass/AddClass";
 import ViewAttendance from "./components/ViewAttendance/ViewAttendance";
+import StudentViewAttendance from "./components/StudentViewAttendance/StudentViewAttendance";
+import AddSubject from "./components/AddSubject/AddSubject";
+import AddExam from "./components/AddExam/AddExam";
+import AddMarks from "./components/AddMarks/AddMarks";
 
 //user context
 import { UserProvider } from "./context";
@@ -25,8 +29,14 @@ function App() {
           <Route path="/add-student" element={<AddStudent />} />
           <Route path="/add-teacher" element={<AddTeacher />} />
           <Route path="/add-class" element={<AddClass />} />
+          <Route path="/add-exam" element={<AddExam />} />
+          <Route path="/add-subject" element={<AddSubject />} />
           <Route path="/view-attendance" element={<ViewAttendance />} />
-          {/* <Route path="/home" element={<Home />} /> */}
+          <Route path="/add-marks" element={<AddMarks />} />
+          <Route
+            path="/student-view-attendance"
+            element={<StudentViewAttendance />}
+          />
         </Routes>
       </Router>
     </UserProvider>
