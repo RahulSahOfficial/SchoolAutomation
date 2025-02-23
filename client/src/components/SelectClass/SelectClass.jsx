@@ -6,7 +6,7 @@ export default function SelectClass() {
   return (
     <div>
         <TeacherNavbar />
-        <div className="section">
+        <div className="section selectClass">
         <h1>Add Attendence</h1>
         <h3>Select Class</h3>
         <div className="options-box">

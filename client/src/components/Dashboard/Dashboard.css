@@ -12,8 +12,7 @@
     border-radius: 10px;
 }
 .options-box{
-    display: flex
-;
+    display: flex;
     gap: 2rem;
     flex-wrap: wrap;
 }

@@ -1,6 +1,7 @@
 import TeacherNavbar from "../Navbar/TeacherNavbar";
 import { Link } from "react-router-dom";
 import { MdFormatListBulletedAdd } from "react-icons/md";
+import { IoIosPersonAdd } from "react-icons/io";
 import "./Dashboard.css";
 
 export default function TeacherDashboard() {
@@ -25,6 +26,12 @@ export default function TeacherDashboard() {
           <MdFormatListBulletedAdd />
             <br />
             Add Attendence
+          </Link>
+
+          <Link to="/add-student">
+          <IoIosPersonAdd />
+            <br />
+            Add Student
           </Link>
         </div>
       </div>

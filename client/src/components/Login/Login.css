@@ -43,7 +43,7 @@
 .each-line label{
     margin-bottom: 0.5rem;
 }
-.each-line input{
+.each-line input,.each-line select{
     padding: 0.4rem;
     max-width: 350px;
 }
