@@ -6,47 +6,6 @@ const { emailRegex } = require("../utils/checks");
 
 const bcrypt = require("bcrypt");
 
-router.get("/class/:classId", async (req, res) => {
-  try {
-    const classId = parseInt(req.params.classId);
-    if (isNaN(classId)) {
-      return res
-        .status(400)
-        .send({ error: "Invalid class id format to fetch students." });
-    }
-    const query = "SELECT * FROM students WHERE class_id=$1";
-    const result = await pool.query(query, [classId]);
-
-    const data = result.rows;
-    for (let i = 0; i < data.length; i++) {
-      delete data[i]["password"];
-    }
-    res.status(200).send(data);
-  } catch (error) {
-    console.log("Error while getting info for the student of class: ", error);
-    return res.status.send({ error: "Internal server error." });
-  }
-});
-
-router.get("/:id", async (req, res) => {
-  try {
-    const studentId = parseInt(req.params.id);
-    if (isNaN(studentId)) {
-      return res.status(400).send({ error: "Invalid student id format." });
-    }
-    const query = "SELECT * FROM students WHERE student_id=$1";
-    const result = await pool.query(query, [studentId]);
-
-    const data = result.rows[0];
-
-    delete data["password"];
-    res.status(200).send(data);
-  } catch (error) {
-    console.log("Error while getting info for the student: ", error);
-    return res.status.send({ error: "Internal server error." });
-  }
-});
-
 router.get("/", async (_, res) => {
   try {
     const query = "SELECT * FROM students";
@@ -157,6 +116,47 @@ router.post("/login", async (req, res) => {
   } catch (error) {
     console.error("Error logging in for student:", error);
     res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/class/:classId", async (req, res) => {
+  try {
+    const classId = parseInt(req.params.classId);
+    if (isNaN(classId)) {
+      return res
+        .status(400)
+        .send({ error: "Invalid class id format to fetch students." });
+    }
+    const query = "SELECT * FROM students WHERE class_id=$1";
+    const result = await pool.query(query, [classId]);
+
+    const data = result.rows;
+    for (let i = 0; i < data.length; i++) {
+      delete data[i]["password"];
+    }
+    res.status(200).send(data);
+  } catch (error) {
+    console.log("Error while getting info for the student of class: ", error);
+    return res.status.send({ error: "Internal server error." });
+  }
+});
+
+router.get("/:id", async (req, res) => {
+  try {
+    const studentId = parseInt(req.params.id);
+    if (isNaN(studentId)) {
+      return res.status(400).send({ error: "Invalid student id format." });
+    }
+    const query = "SELECT * FROM students WHERE student_id=$1";
+    const result = await pool.query(query, [studentId]);
+
+    const data = result.rows[0];
+
+    delete data["password"];
+    res.status(200).send(data);
+  } catch (error) {
+    console.log("Error while getting info for the student: ", error);
+    return res.status.send({ error: "Internal server error." });
   }
 });
 

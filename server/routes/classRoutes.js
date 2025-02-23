@@ -69,4 +69,22 @@ router.post("/add", async (req, res) => {
   }
 });
 
+router.get("/:teacherId", async (req, res) => {
+  try {
+    const teacherId = parseInt(req.params.teacherId);
+    if (isNaN(teacherId)) {
+      return res
+        .status(400)
+        .send({ error: "Invalid teacher id for the class." });
+    }
+
+    const query = "SELECT * FROM classes WHERE teacher_id=$1";
+    const result = await pool.query(query, [teacherId]);
+    res.status(200).send(result.rows);
+  } catch (error) {
+    console.log("Error while getting classes: ", error);
+    return res.status(500).send({ error: "Internal server error." });
+  }
+});
+
 module.exports = router;

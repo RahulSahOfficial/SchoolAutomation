@@ -5,10 +5,12 @@ import { IoIosPersonAdd } from "react-icons/io";
 import { SiGoogleclassroom } from "react-icons/si";
 import { VscGraphLine } from "react-icons/vsc";
 import "./Dashboard.css";
+import { useContext } from "react";
+import { UserContext } from "../../context";
 
 export default function Dashboard() {
-  const user = JSON.parse(localStorage.getItem("user")) || {};
-  const { role } = user;
+  const { user } = useContext(UserContext);
+  console.log(user);
 
   return (
     <div>
@@ -24,7 +26,7 @@ export default function Dashboard() {
         <h1>Options</h1>
         <div className="options-box">
           {/* Teacher-specific options */}
-          {role === "teacher" && (
+          {user.role === "teacher" && (
             <>
               <Link to="/select-class">
                 <MdFormatListBulletedAdd />
@@ -32,7 +34,7 @@ export default function Dashboard() {
                 Add Attendance
               </Link>
 
-              <Link to="/add-student">
+              <Link to={"/add-student/"}>
                 <IoIosPersonAdd />
                 <br />
                 Add Student
@@ -41,12 +43,12 @@ export default function Dashboard() {
           )}
 
           {/* Headmaster-specific options */}
-          {role === "headmaster" && (
+          {user.role === "headmaster" && (
             <>
               <Link to="/add-teacher">
                 <IoIosPersonAdd />
                 <br />
-               Add Teachers
+                Add Teachers
               </Link>
 
               <Link to="/add-class">
@@ -54,8 +56,8 @@ export default function Dashboard() {
                 <br />
                 Add Class
               </Link>
-              
-              <Link to="/view-attendence">
+
+              <Link to="/view-attendance">
                 <VscGraphLine />
                 <br />
                 View Attendence
@@ -64,7 +66,7 @@ export default function Dashboard() {
           )}
 
           {/* Student-specific options */}
-          {role === "student" && (
+          {user.role === "student" && (
             <>
               <Link to="/view-attendance">
                 <MdFormatListBulletedAdd />

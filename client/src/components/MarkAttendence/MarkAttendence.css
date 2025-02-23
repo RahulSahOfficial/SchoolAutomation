@@ -1,38 +1,57 @@
 .mark-attendence input[type="checkbox"] {
-    appearance: none;
-    width: 1.5rem;
-    height: 1.5rem;
-    border: 2px solid red;
-    background-color: red;
-    cursor: pointer;
-    transition: background-color 0.3s, border-color 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+  appearance: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid red;
+  background-color: red;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 .mark-attendence input[type="checkbox"]::after {
-    content: "✖";
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    position: absolute;
+  content: "✖";
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  position: absolute;
 }
 .mark-attendence input[type="checkbox"]:checked {
-    border-color: green;
-    background-color: green;
+  border-color: green;
+  background-color: green;
 }
 .mark-attendence input[type="checkbox"]:checked::after {
-    content: "✔";
+  content: "✔";
 }
-.analysis-box{
-    margin-top: 1rem;
+.analysis-box {
+  margin-top: 1rem;
 }
-.analysis-box p{
-    max-width: 500px;
-    color: var(--text-dark-color);
-    background: var(--secondary-color);
-    padding: 1rem;
-    border-radius: 5px;
-    margin-bottom: 1rem;
+.analysis-box p {
+  max-width: 500px;
+  color: var(--text-dark-color);
+  background: var(--secondary-color);
+  padding: 1rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+.spinner {
+  align-self: center;
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-top-color: #3498db; /* Blue color */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

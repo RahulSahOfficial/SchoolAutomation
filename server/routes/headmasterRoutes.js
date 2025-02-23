@@ -6,50 +6,7 @@ const pool = require("../DB").pool;
 
 const { emailRegex } = require("../utils/checks");
 
-// get headmaster by ID
-router.get("/:id", async (req, res) => {
-  try {
-    const headmasterId = parseInt(req.params.id);
-
-    // Validate that ID is a number
-    if (isNaN(headmasterId)) {
-      return res.status(400).json({ error: "Invalid headmaster ID format" });
-    }
-
-    // Query the database
-    const query = "SELECT * FROM headmasters WHERE headmaster_id = $1";
-    const result = await pool.query(query, [headmasterId]);
-
-    // Check if headmaster exists
-    if (result.rows.length === 0) {
-      return res.status(404).json({ error: "Headmaster not found" });
-    }
-    const data = result.rows[0];
-    delete data["password"];
-
-    // Return the headmaster data
-    res.status(200).json(result.rows[0]);
-  } catch (error) {
-    console.error("Error fetching headmaster:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-router.get("/", async (_, res) => {
-  try {
-    const query = "SELECT * FROM headmasters";
-    const result = await pool.query(query);
-    const data = result.rows;
-    for (let i = 0; i < data.length; i++) {
-      delete data[i]["password"];
-    }
-    return res.status(200).send(data);
-  } catch (error) {
-    console.log("Error fetching all headmasters: ", error);
-    return res.status(500).send({ error: "Internal server error." });
-  }
-});
-
+//register for headmaster
 router.post("/register", async (req, res) => {
   try {
     const { name, email, hashedPassword } = req.body;
@@ -142,6 +99,51 @@ router.post("/login", async (req, res) => {
   } catch (error) {
     console.error("Error logging in for headmaster:", error);
     res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// get headmaster by ID
+router.get("/:id", async (req, res) => {
+  try {
+    const headmasterId = parseInt(req.params.id);
+
+    // Validate that ID is a number
+    if (isNaN(headmasterId)) {
+      return res.status(400).json({ error: "Invalid headmaster ID format" });
+    }
+
+    // Query the database
+    const query = "SELECT * FROM headmasters WHERE headmaster_id = $1";
+    const result = await pool.query(query, [headmasterId]);
+
+    // Check if headmaster exists
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Headmaster not found" });
+    }
+    const data = result.rows[0];
+    delete data["password"];
+
+    // Return the headmaster data
+    res.status(200).json(result.rows[0]);
+  } catch (error) {
+    console.error("Error fetching headmaster:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+//get all headmasters
+router.get("/", async (_, res) => {
+  try {
+    const query = "SELECT * FROM headmasters";
+    const result = await pool.query(query);
+    const data = result.rows;
+    for (let i = 0; i < data.length; i++) {
+      delete data[i]["password"];
+    }
+    return res.status(200).send(data);
+  } catch (error) {
+    console.log("Error fetching all headmasters: ", error);
+    return res.status(500).send({ error: "Internal server error." });
   }
 });
 

@@ -29,4 +29,5 @@ function getColor(percentage) {
   return "#F44336";
 }
 
-export { formatDate, getLabel, getColor };
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+export { formatDate, getLabel, getColor, emailRegex };
