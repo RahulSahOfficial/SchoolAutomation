@@ -1,97 +1,161 @@
 const express = require("express");
 const router = express.Router();
+
 const pool = require("../DB").pool;
+const { emailRegex } = require("../utils/checks");
 
-router.get("/class/:id", async (req, res) => {
+const bcrypt = require("bcrypt");
+
+router.get("/class/:classId", async (req, res) => {
   try {
-    const classId = parseInt(req.params.id);
-    if (!isNaN(classId)) {
-      return res.status(400).json({ error: "Invalid class id format." });
+    const classId = parseInt(req.params.classId);
+    if (isNaN(classId)) {
+      return res
+        .status(400)
+        .send({ error: "Invalid class id format to fetch students." });
     }
-
-    const query =
-      "SELECT students.student_id, students.name, students.roll_no FROM students WHERE students.class_id = $1";
+    const query = "SELECT * FROM students WHERE class_id=$1";
     const result = await pool.query(query, [classId]);
 
-    if (result.rows.length == 0) {
-      return res.status(404).json({ error: "Class not found." });
+    const data = result.rows;
+    for (let i = 0; i < data.length; i++) {
+      delete data[i]["password"];
     }
-    return res.status(200).json(result.rows);
+    res.status(200).send(data);
   } catch (error) {
-    console.error("Error fetching student:", error);
-    res.status(500).json({ error: "Internal server error" });
+    console.log("Error while getting info for the student of class: ", error);
+    return res.status.send({ error: "Internal server error." });
   }
 });
+
 router.get("/:id", async (req, res) => {
   try {
     const studentId = parseInt(req.params.id);
-
-    // Validate that ID is a number
     if (isNaN(studentId)) {
-      return res.status(400).json({ error: "Invalid student ID format" });
+      return res.status(400).send({ error: "Invalid student id format." });
     }
-
-    // Query the database
-    const query = "SELECT * FROM students WHERE student_id = $1";
+    const query = "SELECT * FROM students WHERE student_id=$1";
     const result = await pool.query(query, [studentId]);
 
-    // Check if student exists
-    if (result.rows.length === 0) {
-      return res.status(404).json({ error: "Student not found" });
-    }
+    const data = result.rows[0];
 
-    // Return the student data
-    res.status(200).json(result.rows[0]);
+    delete data["password"];
+    res.status(200).send(data);
   } catch (error) {
-    console.error("Error fetching student:", error);
-    res.status(500).json({ error: "Internal server error" });
+    console.log("Error while getting info for the student: ", error);
+    return res.status.send({ error: "Internal server error." });
   }
 });
 
-router.post("/", async (req, res) => {
+router.get("/", async (_, res) => {
   try {
-    // Extract student data from request body
-    const { name, roll_no, class_id } = req.body;
+    const query = "SELECT * FROM students";
+    const result = await pool.query(query);
+
+    const data = result.rows;
+    for (let i = 0; i < data.length; i++) {
+      delete data[i]["password"];
+    }
+    res.status(200).send(data);
+  } catch (error) {
+    console.log("Error while getting info for the student: ", error);
+    return res.status.send({ error: "Internal server error." });
+  }
+});
+
+router.post("/register", async (req, res) => {
+  try {
+    let { rollNo, name, email, hashedPassword, classId } = req.body;
+
+    rollNo = parseInt(rollNo);
+    if (isNaN(rollNo)) {
+      return res.status(400).send({ error: "Invalid student roll no. format" });
+    }
+
+    classId = parseInt(classId);
+    if (isNaN(classId)) {
+      return res.status(400).send({ error: "Invalid student class ID format" });
+    }
+
+    if (!name || typeof name != "string" || name.trim() === "") {
+      return res.status(400).send({ error: "Invalid name format." });
+    }
+
+    if (
+      !email ||
+      typeof email != "string" ||
+      email.trim() === "" ||
+      !emailRegex.test(email)
+    ) {
+      return res.status(400).send({ error: "Invalid email format" });
+    }
+
+    const emailCheckQuery = "SELECT * FROM students WHERE email=$1";
+    const emailCheckQueryResult = await pool.query(emailCheckQuery, [email]);
+    if (emailCheckQueryResult.rows.length > 0) {
+      return res
+        .status(400)
+        .send({ error: "Email is already taken, use some other email." });
+    }
+
+    const query =
+      "INSERT INTO students (roll_no, name, email, password, class_id) VALUES ($1, $2, $3, $4, $5) RETURNING *";
+    const result = await pool.query(query, [
+      rollNo,
+      name,
+      email,
+      hashedPassword,
+      classId,
+    ]);
+    const data = result.rows[0];
+    delete data["password"];
+
+    return res.status(200).send(result.rows[0]);
+  } catch (error) {
+    console.log("Error while registering new student: ", error);
+    return res.status(500).send({ error: "Internal server error." });
+  }
+});
+
+//login for students
+router.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
 
     // Validate input
-    if (!name || typeof name !== "string" || name.trim() === "") {
-      return res.status(400).json({ error: "Valid student name is required" });
+    if (
+      !email ||
+      typeof email != "string" ||
+      email.trim() === "" ||
+      !emailRegex.test(email)
+    ) {
+      return res.status(400).json({ error: "Valid student email is required" });
     }
 
-    if (
-      roll_no === null ||
-      isNaN(parseInt(roll_no)) ||
-      parseInt(roll_no) <= 0
-    ) {
+    if (!password || typeof password != "string" || password.trim() === "") {
       return res
         .status(400)
-        .json({ error: "Roll No must be a positive number" });
+        .json({ error: "Valid student password is required" });
     }
 
-    if (
-      class_id === null ||
-      isNaN(parseInt(class_id)) ||
-      parseInt(class_id) <= 0
-    ) {
-      return res
-        .status(400)
-        .json({ error: "Class ID must be a positive number or null" });
+    //  get password for the given email id
+    const query = "SELECT * FROM students WHERE email=$1";
+    const result = await pool.query(query, [email]);
+    if (result.rows.length === 0) {
+      return res.status(400).send({ error: "Email does not exists." });
     }
 
-    // Insert the new student, letting PostgreSQL handle the auto-increment
-    const query =
-      "INSERT INTO students (name,roll_no,  class_id) VALUES ($1, $2, $3) RETURNING *";
-    const result = await pool.query(query, [name, roll_no, class_id]);
+    const data = result.rows[0];
+    const passwordFromDB = data.password;
+    const match = await bcrypt.compare(password, passwordFromDB);
 
-    // Return the newly created student with the auto-generated ID
-    res.status(201).json(result.rows[0]);
+    if (match) {
+      delete data["password"];
+      return res.status(200).send(data);
+    }
+    return res.status(400).send({ error: "Invalid password of the student." });
   } catch (error) {
-    // Check for foreign key violation
-    if (error.code === "23503") {
-      return res.status(400).json({ error: "Referenced class does not exist" });
-    }
-
-    console.error("Error creating student:", error);
+    console.error("Error logging in for student:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
