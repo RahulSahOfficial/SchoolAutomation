@@ -1,4 +1,4 @@
-import TeacherNavbar from "../Navbar/TeacherNavbar";
+import Navbar from "../Navbar/Navbar";
 import { Link,useNavigate } from "react-router-dom";
 import { HiMiniSpeakerWave } from "react-icons/hi2";
 import "./MarkAttendence.css";
@@ -75,7 +75,7 @@ export default function MarkAttendence() {
   };
   return (
     <div>
-      <TeacherNavbar />
+      <Navbar />
 
       <div className="section mark-attendence">
         <h1>Attendence Form</h1>
