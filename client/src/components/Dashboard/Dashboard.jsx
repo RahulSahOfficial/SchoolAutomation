@@ -66,7 +66,7 @@ export default function Dashboard() {
           {/* Student-specific options */}
           {role === "student" && (
             <>
-              <Link to="/view-attendance">
+              <Link to="/student-view-attendance">
                 <MdFormatListBulletedAdd />
                 <br />
                 View Attendance

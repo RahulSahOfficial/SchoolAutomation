@@ -9,6 +9,7 @@ import AddStudent from "./components/AddStudent/AddStudent";
 import AddTeacher from "./components/AddTeacher/AddTeacher";
 import AddClass from "./components/AddClass/AddClass";
 import ViewAttendance from "./components/ViewAttendance/ViewAttendance";
+import StudentViewAttendance from "./components/StudentViewAttendance/StudentViewAttendance";
 
 
 function App() {
@@ -22,8 +23,8 @@ function App() {
         <Route path="/add-student" element={<AddStudent />} />
         <Route path="/add-teacher" element={<AddTeacher />} />
         <Route path="/add-class" element={<AddClass />} />
-        <Route path="/view-attendence" element={<ViewAttendance />} />
-        {/* <Route path="/home" element={<Home />} /> */}
+        <Route path="/view-attendance" element={<ViewAttendance />} />
+        <Route path="/student-view-attendance" element={<StudentViewAttendance />} />
       </Routes>
     </Router>
   )
